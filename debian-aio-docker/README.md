@@ -21,7 +21,7 @@ Before building the image, please ensure to:
 
 ```bash
 docker build . \
-  --build-arg WALLARM_AIO_VERSION=6.0.2 \
+  --build-arg WALLARM_AIO_VERSION=6.2.0 \
   --build-arg NGINX_VERSION="1.28.0" \
   --build-arg WALLARM_WCLI_MODE=filtering \
   -t wallarmcustom:latest
@@ -43,7 +43,7 @@ docker buildx build \
   --platform linux/amd64 \
   -f Dockerfile \
   --load \
-  --build-arg WALLARM_AIO_VERSION="6.2.0-rc0" \
+  --build-arg WALLARM_AIO_VERSION="6.2.0" \
   --build-arg NGINX_VERSION="1.28.0" \
   --build-arg WALLARM_WCLI_MODE=filtering \
   -t wallarmcustom:latest .
