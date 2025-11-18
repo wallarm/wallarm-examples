@@ -25,13 +25,11 @@ RUN groupadd -r wallarm && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Install AiO in specified mode, node registration skipped with the --install-only argument, clean up, fix chown
-RUN wget -O ./aio.sh "https://storage.googleapis.com/meganode_storage/${WALLARM_AIO_VERSION%.*}/wallarm-${WALLARM_AIO_VERSION}.x86_64-glibc.sh" && \
+RUN wget -O ./aio.sh "https://meganode.wallarm.com/${WALLARM_AIO_VERSION%.*}/wallarm-${WALLARM_AIO_VERSION}.x86_64-glibc.sh" && \
     chmod +x aio.sh && \
     ./aio.sh -- -b --install-only --docker ${WALLARM_WCLI_MODE} && \
     chown -R wallarm:wallarm /run /etc/environment /etc/nginx /var/log/nginx /var/cache/nginx /usr/share/nginx /opt/wallarm && \
     rm aio.sh
-
-RUN sed -i 's/register-node/register-node -mode ${WALLARM_WCLI_MODE}/g' /opt/wallarm/docker-init
 
 # Optional - redirect nginx logs to stdout, and setcap on binaries
 RUN ln -sf /dev/stdout /var/log/nginx/access.log && \
