@@ -10,10 +10,12 @@ This is an example of building a custom Wallarm AIO (All-in-One) Docker image. T
 
 ## Important Notes
 
+Relevant for version => 6.8.0
+
 Before building the image, please ensure to:
 1. Adjust the `entrypoint.sh` script with your specific commands
 2. Modify `nginx.conf` and other NGINX configurations according to your settings
-3. Set the correct Tarantool domain/IP in the `upstream wallarm_wstore` section of your NGINX configuration
+3. Set the correct WStore domain/IP in the `upstream wallarm_wstore` section of your NGINX configuration
 
 ## Building the Image
 
@@ -21,7 +23,7 @@ Before building the image, please ensure to:
 
 ```bash
 docker build . \
-  --build-arg WALLARM_AIO_VERSION=6.2.0 \
+  --build-arg WALLARM_AIO_VERSION=6.8.0 \
   --build-arg NGINX_VERSION="1.28.0" \
   --build-arg WALLARM_WCLI_MODE=filtering \
   -t wallarmcustom:latest
@@ -43,7 +45,7 @@ docker buildx build \
   --platform linux/amd64 \
   -f Dockerfile \
   --load \
-  --build-arg WALLARM_AIO_VERSION="6.2.0" \
+  --build-arg WALLARM_AIO_VERSION="6.8.0" \
   --build-arg NGINX_VERSION="1.28.0" \
   --build-arg WALLARM_WCLI_MODE=filtering \
   -t wallarmcustom:latest .

@@ -6,7 +6,7 @@ FROM debian:12
 ARG WALLARM_AIO_VERSION
 ARG NGINX_VERSION
 
-ARG WALLARM_WCLI_MODE=filtering
+ARG WALLARM_WCLI_MODE
 
 LABEL org.opencontainers.image.authors=mail@maintainer.com
 
@@ -15,9 +15,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 ENV WALLARM_WCLI_MODE=$WALLARM_WCLI_MODE
 
 # Install required packages for adding repositories and fetching keys, install nginx from repo
-RUN groupadd -r wallarm && \
-    useradd -r -d /opt/wallarm -g wallarm wallarm && \
-    apt-get update && apt-get install -y gnupg2 ca-certificates lsb-release wget --no-install-recommends && \
+RUN apt-get update && apt-get install -y gnupg2 ca-certificates lsb-release wget --no-install-recommends && \
     wget https://nginx.org/keys/nginx_signing.key && \
     apt-key add nginx_signing.key && \
     printf "deb http://nginx.org/packages/debian/ $(lsb_release -cs) nginx\n" | tee /etc/apt/sources.list.d/nginx.list && \
